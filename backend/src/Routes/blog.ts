@@ -3,6 +3,8 @@ import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 
 import { decode, sign, verify } from 'hono/jwt'
+import {createblogZod, updateblogZod} from 'blogo-common'
+
 
 // this is how we specify types to our env variables in typescript in hono
 // because datasourceUrl expects string 
@@ -46,6 +48,13 @@ blogRouter.post('/', async(c) => {
     }).$extends(withAccelerate())
 
     const body = await c.req.json();
+    const {success} = createblogZod.safeParse(body);
+    if(!success){
+        c.status(411);
+        return c.json({
+            error : "validation failed"
+        })
+    }
     const authorId = c.get("authorId")
     try {
         const blog = await prisma.post.create({
@@ -72,7 +81,27 @@ blogRouter.put('/', async(c) => {
         }).$extends(withAccelerate())
     
         const body = await c.req.json();
+
+        const {success} = updateblogZod.safeParse(body);
+        if(!success){
+            c.status(411);
+            return c.json({
+                error : "validation failed"
+            })
+        }
         try {
+            const authorId = c.get("authorId");
+            const userCheck = await prisma.post.findFirst({
+                where : {
+                    id : body.id
+                }
+            })
+
+            if(userCheck && userCheck.id !== authorId){
+                return c.json({
+                    message : "you cannot update others blog"
+                })
+            }
             const blog = await prisma.post.update({
                 where :{
                     id : body.id
@@ -143,3 +172,8 @@ blogRouter.get('/:id', async(c) => {
 })
   
 
+// {
+//     "id" : "01890d93-66a6-4e33-b7bb-b3e14e97717a",
+//     "title" : "Library",
+//     "content" : "created my own library"
+// }

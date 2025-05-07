@@ -1,8 +1,11 @@
 import { Hono } from 'hono'
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
-
 import { decode, sign, verify } from 'hono/jwt'
+
+import { signupZod } from 'blogo-common';
+import { signinZod } from 'blogo-common';
+
 
 // this is how we specify types to our env variables in typescript in hono
 // because datasourceUrl expects string 
@@ -19,6 +22,14 @@ userRouter.post('/signup', async(c) => {
     }).$extends(withAccelerate())
   
     const body = await c.req.json();
+    const { success } = signupZod.safeParse(body)
+
+    if(!success){
+      c.status(411);
+      return c.json({
+        error : "validation failed"
+      })
+    }
   
     try {
       const user = await prisma.user.create({
@@ -47,6 +58,15 @@ userRouter.post('/signin', async(c) => {
     }).$extends(withAccelerate())
   
     const user = await c.req.json();
+
+    const {success} = signinZod.safeParse(user);
+    if(!success){
+      c.status(411);
+      return c.json({
+        error : "validation failed"
+      })
+    }
+
     try {
         const isthere = await prisma.user.findUnique({
             where :{
