@@ -27,11 +27,17 @@ userRouter.post('/signup', async(c) => {
     if(!success){
       c.status(411);
       return c.json({
-        error : "validation failed"
+        error : "please enter valid details"
       })
     }
   
     try {
+      if(body.password.length < 5){
+        c.status(411);
+        return c.json({
+          message : "password error"
+        })
+      }
       const user = await prisma.user.create({
         data :{
           email : body.email,
@@ -48,7 +54,7 @@ userRouter.post('/signup', async(c) => {
       })
     } catch (error) {
       c.status(403)
-      return c.json({error : "error while logging up"})
+      return c.json({error})
     }
   })
   
@@ -63,7 +69,7 @@ userRouter.post('/signin', async(c) => {
     if(!success){
       c.status(411);
       return c.json({
-        error : "validation failed"
+        error : "please enter valid details"
       })
     }
 
@@ -94,6 +100,6 @@ userRouter.post('/signin', async(c) => {
         })
     }catch (error) {
         c.status(403)
-        return c.json({erroe : error})
+        return c.json({error})
     }
 })
