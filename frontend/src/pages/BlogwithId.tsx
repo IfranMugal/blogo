@@ -19,7 +19,7 @@ function BlogwithId() {
   
   return (
     <>
-    <Appbar bulk={false} create={false}/>
+    <Appbar myblog={true} bulk={false} create={false}/>
     <div className='flex justify-center'>
       <div className=''>
           <BlogComponent 

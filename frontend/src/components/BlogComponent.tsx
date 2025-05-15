@@ -1,4 +1,5 @@
 import React from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 interface blogProps{
     id:string
@@ -29,6 +30,7 @@ function BlogComponent({id,authorName,title,content,publishedDate} : blogProps) 
                 {Math.ceil(content.length / 100)} minutes read
             </div>
         </div>
+        
     </div>
   )
 }

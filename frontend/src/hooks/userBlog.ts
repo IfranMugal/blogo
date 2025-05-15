@@ -1,15 +1,7 @@
 import React, { useState,useEffect } from 'react'
 import { BACKEND_URL } from '../../config';
 import axios from 'axios';
-export type Blog = {
-    id: string;
-    title: string;
-    content: string;
-    author: {
-      name: string;
-    };
-    authorId: string;
-  };
+import type {Blog} from './useBlogs'
   
 
 function useBlogs() {
@@ -18,7 +10,7 @@ function useBlogs() {
     const token = localStorage.getItem("jwt");
 
     useEffect(()=> {
-        axios.get(`${BACKEND_URL}/api/v1/blog/bulk`,{
+        axios.get(`${BACKEND_URL}/api/v1/blog/userbulk`,{
             headers: {
                 Authorization: `Bearer ${token}` // replace with your actual token variable
             }

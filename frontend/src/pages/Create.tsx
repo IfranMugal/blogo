@@ -56,7 +56,7 @@ function Create() {
 
     return (
         <>
-            <Appbar bulk={false} create={true} />
+            <Appbar myblog={true} bulk={false} create={true} />
             <div className="flex flex-col items-center min-h-screen px-4 mt-10">
                 {error && (
                     <div className="mb-4 text-red-600 text-sm">

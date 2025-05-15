@@ -19,28 +19,28 @@ export const blogRouter = new Hono<{
     }
 }>();
 
-// middleware syntax
-blogRouter.post('/*', async(c,next) => {
+// Apply to all methods and paths
+blogRouter.use(async(c, next) => {
     const header = c.req.header("authorization") || " ";
-    const token = header.split(" ")[1]
+    const token = header.split(" ")[1];
     try {
-      const user = await verify(token,c.env.JWT_SECRET);
-  
-    if(!user || typeof user.id !== 'string'){
-      c.status(403);
-      return c.json({message : "unauthorized"})
-    }
-    // somehow extract userId and pass it down to below routes
-    //c.req.authorId = user;
-    c.set("authorId",user.id)
-    console.log("value of user in middleware : ",user)
-  
-    await next();
+        const user = await verify(token, c.env.JWT_SECRET);
+
+        if (!user || typeof user.id !== 'string') {
+            c.status(403);
+            return c.json({ message: "unauthorized" });
+        }
+
+        c.set("authorId", user.id);
+        console.log("Authenticated user ID:", user.id);
+
+        await next();
     } catch (error) {
-      c.status(403);
-      return c.json({error : error})
+        c.status(403);
+        return c.json({ error: "Invalid token" });
     }
-})
+});
+
 
 blogRouter.post('/', async(c) => {
     const prisma = new PrismaClient({
@@ -97,7 +97,7 @@ blogRouter.put('/', async(c) => {
                 }
             })
 
-            if(userCheck && userCheck.id !== authorId){
+            if(userCheck && userCheck.authorId !== authorId){
                 return c.json({
                     message : "you cannot update others blog"
                 })
@@ -153,6 +153,45 @@ blogRouter.get('/bulk', async(c) => {
         })
     }
 
+})
+
+
+// to get all blog of current user
+blogRouter.get('/userbulk', async(c) => {
+    const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate())
+
+    try {
+        const authorId = c.get("authorId");
+        console.log("author id from userblog : ",authorId)
+        const blogs = await prisma.post.findMany({
+            where :{
+                authorId : authorId
+            },
+            select :{
+                title : true,
+                content : true,
+                id : true,
+                author :{
+                    select :{
+                        name : true,
+                    }
+                },
+                authorId : true
+            }
+        });
+
+        return c.json({
+            blogs : blogs,
+            authorid : authorId
+        })
+    } catch (error) {
+        c.status(411);
+        return c.json({
+            error : error
+        })
+    }
 })
   
 blogRouter.get('/:id', async(c) => {

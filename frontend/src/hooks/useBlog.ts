@@ -2,16 +2,7 @@ import React, { useState,useEffect } from 'react'
 import { BACKEND_URL } from '../../config';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-type Blog = {
-    id: string;
-    title: string;
-    content: string;
-    author: {
-      name: string;
-    };
-    authorId: string;
-  };
-  
+import type { Blog } from './useBlogs';
 
 function useBlog() {
     const[loading,setLoading] = useState(true);
