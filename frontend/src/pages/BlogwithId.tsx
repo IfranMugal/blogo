@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import Appbar from '../components/Appbar';
 import { useNavigate } from 'react-router-dom';
 import useBlog from '../hooks/useBlog';
@@ -30,7 +30,6 @@ function BlogwithId() {
       <div className=''>
           <BlogComponent 
             key={blog.id}
-            id={blog.id}
             authorName={blog.author.name}
             title={blog.title}
             content={blog.content}

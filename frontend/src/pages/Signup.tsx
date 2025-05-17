@@ -1,4 +1,3 @@
-import React from 'react'
 import Qoute from '../components/Qoute'
 import Infobox from '../components/Infobox'
 

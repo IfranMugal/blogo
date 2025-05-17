@@ -1,4 +1,3 @@
-import React from 'react'
 import Qoute from '../components/Qoute'
 import Infosigninbox from '../components/Infosigninbox'
 

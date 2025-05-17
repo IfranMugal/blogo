@@ -1,14 +1,10 @@
-import React from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
-
 interface blogProps{
-    id:string
     authorName:string
     title:string
     content:string
     publishedDate:string
 }
-function BlogComponent({id,authorName,title,content,publishedDate} : blogProps) {
+function BlogComponent({authorName,title,content,publishedDate} : blogProps) {
   return (
     <div className='text-left w-lg p-6 border border-gray-300'>
         <div className='flex'>

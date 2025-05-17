@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import Blogcard from '../components/Blogcard'
 import useBlogs from '../hooks/useBlogs';
 import Appbar from '../components/Appbar';
