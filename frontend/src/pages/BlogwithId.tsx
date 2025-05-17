@@ -3,6 +3,7 @@ import Appbar from '../components/Appbar';
 import { useNavigate } from 'react-router-dom';
 import useBlog from '../hooks/useBlog';
 import BlogComponent from '../components/BlogComponent';
+import Skeleton from '../components/Skeleton';
 
 function BlogwithId() {
   const navigate = useNavigate();
@@ -14,7 +15,12 @@ function BlogwithId() {
   },[])
   const { loading, blog } = useBlog();
   if(loading){
-    return <div>loading...</div>
+    return <>
+    <Appbar myblog={true} bulk={false} create={false}/>
+    <div className='flex justify-center'>
+      <Skeleton />
+    </div>
+    </>
   }
   
   return (

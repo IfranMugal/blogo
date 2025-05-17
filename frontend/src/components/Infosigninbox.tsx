@@ -54,7 +54,7 @@ function Infosigninbox() {
 
         <div className="text-sm text-gray-600 text-center">
           Don't have an account?
-          <Link to="/signin" className="text-blue-500 hover:underline ml-1">
+          <Link to="/signup" className="text-blue-500 hover:underline ml-1">
             Sign up
           </Link>
         </div>

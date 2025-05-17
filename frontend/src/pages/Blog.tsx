@@ -3,6 +3,7 @@ import Blogcard from '../components/Blogcard'
 import useBlogs from '../hooks/useBlogs';
 import Appbar from '../components/Appbar';
 import { useNavigate } from 'react-router-dom';
+import Skeleton from '../components/Skeleton';
 
 function Blog() {
   const navigate = useNavigate();
@@ -15,7 +16,15 @@ function Blog() {
 
   const {loading,blogs} = useBlogs();
   if(loading){
-    return <div>loading...</div>
+    return <>
+      <Appbar myblog={false} bulk={true} create={false}/>
+      <div className='flex flex-col items-center justify-center'>
+        <Skeleton />
+        <Skeleton />
+        <Skeleton />
+        <Skeleton />
+      </div>
+    </>
   }
   
   return (
@@ -30,7 +39,13 @@ function Blog() {
             authorName={blog.author.name}
             title={blog.title}
             content={blog.content}
-            publishedDate="30-february-2025" // optionally dynamic
+            publishedDate={
+              new Date().toLocaleDateString('en-GB', {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
+              }).replace(/ /g, '-')
+            }
           />
         ))}
       </div>
