@@ -24,7 +24,6 @@ function Infosigninbox() {
       }else{
         localStorage.setItem("jwt",response.data?.token)
         navigate("/blog")
-        alert("signup end reached")
       }
       
     } catch (error : any) {
