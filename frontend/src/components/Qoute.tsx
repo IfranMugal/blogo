@@ -1,6 +1,4 @@
 import { Link } from 'react-router-dom';
-
-
 function Qoute() {
   return (
     <div className='bg-slate-300 h-screen flex justify-center flex-col'>
