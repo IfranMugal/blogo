@@ -1,7 +1,7 @@
 function Skeleton() {
   return (
     <div>
-        <div className='text-left w-lg p-6 '>
+        <div className='text-left w-sm md:w-lg p-6 '>
             <div role="status" className='flex animate-pulse'>
                 <div className="w-6 h-6 rounded-full text-white flex items-center justify-center text-md ">
                     <div className="h-2.5 bg-gray-200 rounded-full w-48 mb-4"></div>

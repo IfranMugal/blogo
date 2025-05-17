@@ -6,7 +6,7 @@ interface blogProps{
 }
 function BlogComponent({authorName,title,content,publishedDate} : blogProps) {
   return (
-    <div className='text-left w-lg p-6 border border-gray-300'>
+    <div className='text-left w-sm md:w-lg p-6 border border-gray-300'>
         <div className='flex'>
             <div className="w-6 h-6 rounded-full bg-gray-500 text-white flex items-center justify-center text-md ">
                 {authorName.charAt(0).toUpperCase()}
