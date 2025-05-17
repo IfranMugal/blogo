@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { type signinInput } from 'blogo-common';
 import axios from 'axios';
-const BACKEND_URL = import.meta.env.BACKEND_URL; 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL; 
 
 function Infosigninbox() {
   const navigate = useNavigate();
@@ -31,7 +31,6 @@ function Infosigninbox() {
       setError(error.response.data.error);
       console.log(error.response.data)
     }
-
   }
 
   return (

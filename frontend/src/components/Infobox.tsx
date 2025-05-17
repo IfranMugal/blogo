@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { type signupInput } from 'blogo-common';
 import axios from 'axios';
-const BACKEND_URL = import.meta.env.BACKEND_URL; 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL; 
 
 function Infobox() {
   const navigate = useNavigate();

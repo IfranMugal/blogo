@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Appbar from '../components/Appbar'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { BACKEND_URL } from '../../config';
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL; 
 
 function Create() {
     const [title, setTitle] = useState("");

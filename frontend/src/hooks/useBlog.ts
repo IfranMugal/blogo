@@ -1,5 +1,5 @@
 import { useState,useEffect } from 'react'
-import { BACKEND_URL } from '../../config';
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL; 
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import type { Blog } from './useBlogs';
