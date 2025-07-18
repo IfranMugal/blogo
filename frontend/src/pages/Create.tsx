@@ -131,30 +131,31 @@ function Create() {
               </div>
             </div>
 
-            <div className="flex justify-between items-center w-full px-4 h-16 relative">
-              <button
-                onClick={generateBlog}
-                className="group relative flex items-center justify-start gap-2 overflow-hidden transition-all duration-1000 ease-in-out bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-full px-4 py-4 w-13 hover:w-50 disabled:opacity-50"
-                disabled={generating}
-              >
-                <span className="min-w-[20px] flex items-center justify-center">
-                  <BrainCircuit className="w-5 h-5 shrink-0" />
-                </span>
-                <span className="absolute left-10 opacity-0 scale-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-in-out whitespace-nowrap">
-                  Generate with AI
-                </span>
-              </button>
+            <div className="flex flex-col items-center w-full px-4 mt-4 gap-4">
+  {/* Publish Post button - top */}
+  <button
+    onClick={post}
+    className="px-6 py-2 bg-blue-700 text-white rounded hover:bg-blue-800 disabled:opacity-50"
+    disabled={loading || generating}
+  >
+    Publish Post
+  </button>
 
-              <div className="absolute left-1/2 transform -translate-x-1/2">
-                <button
-                  onClick={post}
-                  className="px-6 py-2 bg-blue-700 text-white rounded hover:bg-blue-800"
-                  disabled={loading || generating}
-                >
-                  Publish Post
-                </button>
-              </div>
-            </div>
+  {/* Generate with AI button - below Publish */}
+  <button
+    onClick={generateBlog}
+    className="group relative flex items-center justify-start gap-2 overflow-hidden transition-all duration-1000 ease-in-out bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-full px-4 py-4 w-13 hover:w-50 disabled:opacity-50"
+    disabled={generating}
+  >
+    <span className="min-w-[20px] flex items-center justify-center">
+      <BrainCircuit className="w-5 h-5 shrink-0" />
+    </span>
+    <span className="absolute left-10 opacity-0 scale-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-in-out whitespace-nowrap">
+      Generate with AI
+    </span>
+  </button>
+</div>
+
           </>
         )}
       </div>
